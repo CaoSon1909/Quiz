@@ -1,0 +1,83 @@
+GO
+
+CREATE DATABASE P0014
+COLLATE SQL_Latin1_General_CP1_CS_AS;
+
+GO
+
+USE P0014;
+
+GO
+
+CREATE TABLE tbl_Role(
+	ID int primary key,
+	name nvarchar(50) not null,
+	description nvarchar(500)
+);
+
+GO
+
+CREATE TABLE tbl_User(
+	email varchar (320) primary key,
+	password varchar(64) not null,
+	fullname nvarchar(150) not null,
+	roleID int foreign key references tbl_Role(ID) not null,
+	status int not null,
+);
+
+GO
+
+CREATE TABLE tbl_Subject(
+	ID varchar(10) primary key,
+	name varchar(100) not null
+);
+
+GO
+CREATE TABLE tbl_Question(
+	ID int identity(1,1) primary key,
+	subjectID varchar(10) foreign key references tbl_Subject(ID) not null,
+	adminEmail varchar (320) foreign key references tbl_User(email) not null,
+	status int not null,
+	createDate bigInt not null,
+	questionContent nvarchar(500) not null,
+	answerContent1 nvarchar(500) not null,
+	answerContent2 nvarchar(500) not null,
+	answerContent3 nvarchar(500) not null,
+	answerContent4 nvarchar(500) not null,
+	correctAnswer int not null,
+);
+
+GO
+
+CREATE TABLE tbl_Test(
+	ID int identity(1,1) primary key,
+	name nvarchar(30) not null,
+	numOfQuestion  int not null,
+	createDate bigInt not null,
+	adminEmail varchar(320) foreign key references tbl_User(email) not null,
+	subjectID varchar(10) foreign key references tbl_Subject(ID) not null,
+	timeLength bigInt not null,
+	avaiableLength bigInt not null,
+
+);
+
+GO
+
+CREATE TABLE tbl_StudentTest(
+	ID int identity(1,1) primary key,
+	studentEmail varchar (320) foreign key references tbl_User(email) not null,
+	testID int foreign key references tbl_Test(ID) not null,
+	attempDate bigInt not null,
+	correctAnswerNumber int not null,
+	studentChoice int not null,
+);
+
+GO
+
+CREATE TABLE tbl_TestQuestion(
+	ID int identity(1,1) primary key,
+	testID int foreign key references tbl_Test(ID) not null,
+	questionID int foreign key references tbl_Question(ID) not null
+);
+
+

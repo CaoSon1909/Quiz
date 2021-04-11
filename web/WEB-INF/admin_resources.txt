@@ -1,0 +1,17 @@
+load_subject_list_for_create_question
+load_subject_list_for_create_test
+create_question
+search_question
+update_question
+delete_question
+load_question
+create_test
+create_test_question
+load_test_list
+view_test_detail
+create_question_page
+admin_page
+create_question.jsp
+create_test.jsp
+view_test_detail.jsp
+show_test_admin.jsp
